@@ -1,2 +1,2 @@
 # Kubernetes_Theory
-Kubernetes Theory
+Базовая теория по изучению Kubernetes с описанием основных элементов технологии. 
