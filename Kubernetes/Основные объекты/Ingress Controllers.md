@@ -1,0 +1,10 @@
+- Ingress Controllers
+    Чтобы ресурс Ingress работал, в кластере должен быть запущен контроллер входящего трафика. В отличие от других типов контроллеров, которые работают как бинарные части `kube-controller-manager`, Ingress-контроллеры не запускаются автоматически с кластером.
+    
+    Kubernetes как проект поддерживает и поддерживает [AWS](https://github.com/kubernetes-sigs/aws-load-balancer-controller#readme) , [GCE](https://git.k8s.io/ingress-gce/README.md#readme) и [nginx .](https://git.k8s.io/ingress-nginx/README.md#readme) входящие контроллерыВ идеале все контроллеры Ingress должны соответствовать эталонной спецификации. На самом деле различные Ingress контроллеры работают немного по другому.
+    
+    Вы можете развернуть любое количество входных контроллеров, используя [входной класс](https://kubernetes.io/docs/concepts/services-networking/ingress/#ingress-class)внутри кластера. Обратите внимание на `.metadata.name` вашего ресурса входящего класса. Когда вы создаете вход, вам понадобится это имя, чтобы указать `ingressClassName` в вашем объекте Ingress (см. [справку по IngressSpec v1](https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec) ). `ingressClassName` является заменой старого [метода аннотации](https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation) . 
+    
+    Если вы не укажете IngressClass для Ingress, а в вашем кластере есть только один IngressClass, помеченный как используемый по умолчанию, Kubernetes [применяет](https://kubernetes.io/docs/concepts/services-networking/ingress/#default-ingress-class) IngressClass кластера по умолчанию к Ingress. Вы отмечаете IngressClass по умолчанию, устанавливая [`ingressclass.kubernetes.io/is-default-class`аннотация](https://kubernetes.io/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) к этому IngressClass со строковым значением `"true"`. 
+    
+    В идеале все контроллеры входящего трафика должны соответствовать этой спецификации, но различные входные контроллеры контроллеры работают немного по другому.
